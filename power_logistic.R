@@ -3,9 +3,9 @@
 ######################################################################################
 # Logistic Regression - Power function
 # Modeled after
-#Hsieh, F.Y., Block, D.A., and Larsen, M.D. 1998. 
-#'A Simple Method of Sample Size Calculation for Linear and Logistic Regression', 
-#'Statistics in Medicine, Volume 17, pages 1623-1634.
+  # Hsieh, F.Y., Block, D.A., and Larsen, M.D. 1998. 
+  #'A Simple Method of Sample Size Calculation for Linear and Logistic Regression', 
+  #'Statistics in Medicine, Volume 17, pages 1623-1634.
 # Mimics output created by PASS software
 # Author: David Aaby
 # Updated: November 3 2017
@@ -191,8 +191,6 @@ LogisticSampleSize <- function(alpha=NULL, power=NULL, P0=NULL, OR=NULL, R=NULL,
       colnames(results) = c("alpha", "power", "P0", "P1", "OR", "R" ,"N")
     }
   }
-  
- 
   
   return(results)
 }
