@@ -27,6 +27,7 @@ LogisticSampleSize <- function(alpha=NULL, power=NULL, P0=NULL, OR=NULL, R=NULL,
   # OR = odds ratio (odds1 / odds0)
   # R = percent of N with X1=1
   # N = sample size
+
   
   ##################
   # error messages #
@@ -81,6 +82,40 @@ LogisticSampleSize <- function(alpha=NULL, power=NULL, P0=NULL, OR=NULL, R=NULL,
     }
   }
   
+  
+  # solve for power #
+  if(is.null(power)) {
+    
+    P1 = (P0*OR) / (OR*P0 + 1 - P0)
+    Pbar = (1-R)*P0 + R*P1
+    
+    A1 = sqrt(N*((P0-P1)^2)*(1-R))
+    A2 = qnorm(1-alpha/2)* sqrt(Pbar*(1-Pbar)/R)
+    A3 = sqrt(P0*(1-P0) + ((P1*(1-P1)*(1-R))/R))
+    A4 = (A1 - A2) / A3
+    
+    power = pnorm(A4)
+    power = round(power,3)
+    
+    P1 = round(P1,3)
+    
+    # output results #
+    results = NULL
+    
+    if(length(alpha) > 1 | length(P0) > 1 | length(OR) > 1 | length(R) > 1 | length(N) > 1) {
+      rownum = max(length(alpha), length(power), length(P0), length(OR), length(R))
+      for(i in 1:rownum) {
+        results = cbind(alpha, power, P0, P1, OR, R, N)
+      }
+    }
+    
+    else {
+      results = c(alpha, power, P0, P1, OR, R, N)
+      results = data.frame(results)
+      results = t(results)
+      colnames(results) = c("alpha", "power", "P0", "P1", "OR", "R" ,"N")
+    }
+  }
   
  
   
