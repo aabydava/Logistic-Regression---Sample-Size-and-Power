@@ -28,6 +28,19 @@ LogisticSampleSize <- function(alpha=NULL, power=NULL, P0=NULL, OR=NULL, R=NULL,
   # R = percent of N with X1=1
   # N = sample size
   
+  ##################
+  # error messages #
+  ##################
+  if(any(alpha < 0 | alpha > 1)) stop('alpha not between 0 and 1')
+  if(any(power < 0 | power > 1)) stop('power not between 0 and 1')
+  if(any(P0 < 0 | P0 > 1))       stop('P0 not between 0 and 1')
+  if(any(R < 0 | R > 1))         stop('R not between 0 and 1')
+  if(any(OR < 0))                stop('OR not a positive value')
+  if(any(N < 2))                stop('N is less than 2')
+  
+  mylist = list(alpha, power, P0, OR, R, N)
+  l.mylist = lengths(mylist)
+  if(length(l.mylist[l.mylist>=2]) > 1) stop('Only vary one parameter at a time')
 
   
   ############################
